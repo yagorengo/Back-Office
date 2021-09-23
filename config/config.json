@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "formulario-de-incidentes-application-customizer": {
+      "components": [
+        {
+          "entrypoint": "./lib/extensions/formularioDeIncidentes/FormularioDeIncidentesApplicationCustomizer.js",
+          "manifest": "./src/extensions/formularioDeIncidentes/FormularioDeIncidentesApplicationCustomizer.manifest.json"
+        }
+      ]
+    },
+    "formulario-nuevo-incidente-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/formularioNuevoIncidente/FormularioNuevoIncidenteWebPart.js",
+          "manifest": "./src/webparts/formularioNuevoIncidente/FormularioNuevoIncidenteWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "FormularioDeIncidentesApplicationCustomizerStrings": "lib/extensions/formularioDeIncidentes/loc/{locale}.js",
+    "FormularioNuevoIncidenteWebPartStrings": "lib/webparts/formularioNuevoIncidente/loc/{locale}.js"
+  }
+}

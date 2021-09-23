@@ -1,0 +1,34 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://claroaup.sharepoint.com/sites/BackOfficeClaropedia/Lists/test%20Reportes%20de%20Incidentes/AllItems.aspx",
+      "customActions": {
+        "988f90e3-c4f7-43a6-b4cd-b8f90ee6ed09": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    },
+    "formularioDeIncidentes": {
+      "pageUrl": "https://claroaup.sharepoint.com/sites/BackOfficeClaropedia/Lists/test%20Reportes%20de%20Incidentes/AllItems.aspx",
+      "customActions": {
+        "988f90e3-c4f7-43a6-b4cd-b8f90ee6ed09": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "testMessage": "Test message"
+          }
+        }
+      }
+    }
+  },
+  "initialPage": "https://localhost:5432/workbench",
+  "api": {
+    "port": 5432,
+    "entryPath": "node_modules/@microsoft/sp-webpart-workbench/lib/api/"
+  }
+}

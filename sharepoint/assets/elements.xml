@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="FormularioDeIncidentes"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ClientSideComponentId="988f90e3-c4f7-43a6-b4cd-b8f90ee6ed09"
+        ClientSideComponentProperties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+    </CustomAction>
+</Elements>
