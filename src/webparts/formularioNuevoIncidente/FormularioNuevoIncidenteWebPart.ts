@@ -10,18 +10,25 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import * as strings from 'FormularioNuevoIncidenteWebPartStrings';
 import FormularioNuevoIncidente from './components/FormularioNuevoIncidente';
 import { IFormularioNuevoIncidenteProps } from './components/IFormularioNuevoIncidenteProps';
-
+import { setup as pnpSetup } from '@pnp/common';
 export interface IFormularioNuevoIncidenteWebPartProps {
   description: string;
 }
 
 export default class FormularioNuevoIncidenteWebPart extends BaseClientSideWebPart<IFormularioNuevoIncidenteWebPartProps> {
+  public onInit(): Promise<void> {
+    pnpSetup({
+      spfxContext: this.context
+    });
 
+    return Promise.resolve();
+  }
   public render(): void {
     const element: React.ReactElement<IFormularioNuevoIncidenteProps> = React.createElement(
       FormularioNuevoIncidente,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        context: this.context
       }
     );
 

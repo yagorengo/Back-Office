@@ -22,6 +22,7 @@
   "externals": {},
   "localizedResources": {
     "FormularioDeIncidentesApplicationCustomizerStrings": "lib/extensions/formularioDeIncidentes/loc/{locale}.js",
-    "FormularioNuevoIncidenteWebPartStrings": "lib/webparts/formularioNuevoIncidente/loc/{locale}.js"
+    "FormularioNuevoIncidenteWebPartStrings": "lib/webparts/formularioNuevoIncidente/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }

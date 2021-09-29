@@ -3,7 +3,7 @@
   "solution": {
     "name": "back-office-client-side-solution",
     "id": "b8d24a7c-28e3-49a5-8cdc-1ff95e51633d",
-    "version": "1.0.0.7",
+    "version": "1.0.0.8",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
