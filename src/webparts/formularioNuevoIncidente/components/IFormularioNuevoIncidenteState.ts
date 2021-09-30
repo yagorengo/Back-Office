@@ -18,4 +18,5 @@ export interface IFormularioNuevoIncidenteState{
     attach:string;
     itemId:Number;
     confirmDialog:Boolean;
+    successDialog:Boolean;
 }

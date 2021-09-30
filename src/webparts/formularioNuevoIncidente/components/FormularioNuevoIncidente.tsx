@@ -3,12 +3,12 @@ import styles from './FormularioNuevoIncidente.module.scss';
 import { IFormularioNuevoIncidenteProps } from './IFormularioNuevoIncidenteProps';
 import {IFormularioNuevoIncidenteState} from './IFormularioNuevoIncidenteState';
 import { ListItemAttachments } from '@pnp/spfx-controls-react/lib/ListItemAttachments';
-import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button'; 
-import { ComboBox, IComboBoxOption,IComboBoxStyles} from 'office-ui-fabric-react'; 
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { PrimaryButton, DefaultButton } from '@fluentui/react/lib/Button';
+import { ComboBox, IComboBoxOption,IComboBoxStyles} from '@fluentui/react'; 
+import { TextField } from '@fluentui/react';
 import { sp } from "@pnp/sp/presets/all";
 import "@pnp/sp/webs";
-import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
+import { Dialog, DialogType, DialogFooter } from '@fluentui/react';
 
 export default class FormularioNuevoIncidente extends React.Component<IFormularioNuevoIncidenteProps, IFormularioNuevoIncidenteState> {
   
@@ -33,7 +33,8 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
       errorPregunta:false,
       attach:null,
       itemId: null,
-      confirmDialog:false
+      confirmDialog:false,
+      successDialog:false
     }
     
   }
@@ -47,7 +48,6 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
         nombreInstructivo: qnombreInstructivo!=null?qnombreInstructivo:"",
         pais:qpais
       })
-      console.log("pais", qpais)
   }
    public async onInit(): Promise<void> {
     sp.setup(this.props.context);
@@ -76,11 +76,9 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
     this.setState({linkInstructivo:value, errorLinkInstructivo:false})
   }
   private onChangeTipoServicio = (value):void => {
-    this.setState({tipoServicio:value.text})
+    this.setState({tipoServicio:value.text, errorTipoServicio:false})
   }
-  private onChangePais = (value):void => {
-  //  console.log("valor del pais", value)
-    this.setState({pais:value.text, errorPais:false})
+  private onChangePais = (value):void => {this.setState({pais:value.text, errorPais:false})
   }
   private onChangeProcesoAtencion = (value):void => {
     this.setState({procesoAtencion:value, errorProcesoAtencion:false})
@@ -106,20 +104,22 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
       <div className={ styles.formularioNuevoIncidente }>
         <div className = {styles.container}>
           <div className ={styles.column1}>
-          <TextField label="Nombre del instructivo " value={this.state.nombreInstructivo} required errorMessage={this.state.errorNombreInstructivo?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangeNombreInstructivo(newValue)}/>
-          <TextField label="Link del Instructivo " value={this.state.linkInstructivo} required errorMessage={this.state.errorLinkInstructivo?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangeLinkInstructivo(newValue)}/>
-          <ComboBox label="País" options={this.optionsPais} selectedKey={this.state.pais} required errorMessage={this.state.errorPais?"Este campo no puede quedar vacío":""} onChange={(e,newValue)=>this.onChangePais(newValue)}/>
+          <TextField label="Nombre del instructivo " disabled value={this.state.nombreInstructivo} required errorMessage={this.state.errorNombreInstructivo?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangeNombreInstructivo(newValue)}/>
+          <TextField label="Link del Instructivo " disabled value={this.state.linkInstructivo} required errorMessage={this.state.errorLinkInstructivo?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangeLinkInstructivo(newValue)}/>
+          <ComboBox label="País" disabled options={this.optionsPais} selectedKey={this.state.pais} required errorMessage={this.state.errorPais?"Este campo no puede quedar vacío":""} onChange={(e,newValue)=>this.onChangePais(newValue)}/>
            <ListItemAttachments 
               label={"Adjuntar archivo"}
               description={"Agregue un archivo a adjuntar"}
               ref={listItemAttachmentsComponentReference} 
               context={this.props.context} 
-              listId="94e5031b-3470-425b-a557-69c125433f78" 
+              listId="15a99f9e-398f-4205-948d-532672299510" 
               /> 
           </div>
           <div className={styles.column2}>
           <ComboBox
+          required
           label="Tipo de servicio"
+          errorMessage={this.state.errorTipoServicio?"Este campo no puede quedar vacío":""}
           options={this.options}
           onChange={(e,newValue)=>this.onChangeTipoServicio(newValue)}
           />
@@ -127,30 +127,36 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
           <TextField label= "Número de célula"  value={this.state.numeroCelula} onChange={(e,newValue)=>this.onChangeCelula(newValue)}/>
           <TextField label= "Supervisor"  value={this.state.supervisor} onChange={(e,newValue)=>this.onChangeSupervisor(newValue)}/>
           <TextField label= "Sección en el instructivo donde se encuentra la información" value={this.state.seccion} required errorMessage={this.state.errorSeccion?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangeSeccion(newValue)}/>
-          <TextField label="Preguntas / Consultas / Dudas / Reclamos / Comentario" placeholder="Lo mas completo y preciso posible" value={this.state.pregunta} required multiline rows={12} errorMessage={this.state.errorPregunta?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangePreguntas(newValue)}/>
+          <TextField label="Preguntas / Consultas / Dudas / Reclamos / Comentario" placeholder="Lo mas completo y preciso posible" value={this.state.pregunta} required multiline rows={11} errorMessage={this.state.errorPregunta?"Este campo no puede quedar vacío":""}onChange={(e,newValue)=>this.onChangePreguntas(newValue)}/>
           </div>
         </div>
         <div className={ styles.button }>
-            <PrimaryButton  style={{marginRight:10}} text="Enviar" onClick={()=>this.handleOnClickSave(listItemAttachmentsComponentReference)} />
-            <DefaultButton  text="Cancelar"/>
+            <PrimaryButton  style={{marginRight:10 , width:96}} text="Enviar" onClick={()=>this.handleOnClickSave(listItemAttachmentsComponentReference)} />
+            <DefaultButton  href="https://claroaup.sharepoint.com/sites/ClaroPedia365_uybkp/Lists/Reportes%20de%20Incidentes/AllItems.aspx" text="Cancelar"/>
         </div>
         <Dialog
         hidden={!this.state.confirmDialog}
-       // onDismiss={toggleHideDialog}
         dialogContentProps={this.dialogContentProps}
-     
-      >
-        <DialogFooter>
-          <PrimaryButton onClick={()=>this.confirmSubmit(listItemAttachmentsComponentReference)} text="Enviar" />
-          <DefaultButton onClick={()=>this.closeDialog()} text="Cancelar" />
-        </DialogFooter>
-      </Dialog>
+        >
+          <DialogFooter>
+            <PrimaryButton onClick={()=>this.confirmSubmit(listItemAttachmentsComponentReference)} text="Enviar" />
+            <DefaultButton onClick={()=>this.closeDialog()} text="Cancelar" />
+          </DialogFooter>
+        </Dialog>
+        <Dialog
+          hidden={!this.state.successDialog}
+          dialogContentProps={{title:"Consulta enviada", subText:"Tu consulta fue enviada y será analizada. En breve recibirás un correo con la confirmación de tu pedido. Para ver el estado de tus consultas presioná 'Listo' o seguilas desde el botón 'Mis consultas'."}}
+        >
+          <DialogFooter>
+            <PrimaryButton href="https://claroaup.sharepoint.com/sites/ClaroPedia365_uybkp/Lists/Reportes%20de%20Incidentes/AllItems.aspx" text="Listo" />
+          </DialogFooter>
+        </Dialog>
       </div>
     );
   }
 
   private validateValues = ():boolean => {
-    if(this.state.nombreInstructivo=="" || this.state.linkInstructivo==""||this.state.pais ==null||this.state.procesoAtencion==""||this.state.seccion==""||this.state.pregunta==""){
+    if(this.state.nombreInstructivo=="" || this.state.linkInstructivo==""||this.state.pais ==null||this.state.procesoAtencion==""||this.state.seccion==""||this.state.pregunta==""||this.state.tipoServicio==""){
       if(this.state.nombreInstructivo=="")
       {this.setState({errorNombreInstructivo:true})}
       if(this.state.linkInstructivo=="")
@@ -159,6 +165,8 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
       { this.setState({errorPais:true})}
       if(this.state.procesoAtencion=="")
       {this.setState( {errorProcesoAtencion:true})}
+      if(this.state.tipoServicio=="")
+      {this.setState({errorTipoServicio:true})}
       if(this.state.seccion=="")
       {this.setState({errorSeccion:true})}
       if(this.state.pregunta=="")
@@ -172,21 +180,23 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
     if(this.validateValues()){
      this.setState({confirmDialog:true})
     }else{
-      console.log("faltan completar datos")
+    
     }
   }
 
   private confirmSubmit = (reference):void => {
     this.submitItem().then((itemAdded)=> {
-      console.log("item agregad", itemAdded)
      reference.current.uploadAttachments(itemAdded.Id);
+     this.setState({confirmDialog:false, successDialog:true})
     });
   }
+
   private closeDialog = ():void => {
-    this.setState({confirmDialog:false})
+    this.setState({confirmDialog:false, successDialog:false})
   }
+
   private submitItem = ():Promise<any> =>{
-    return sp.web.lists.getByTitle("Test formulario").items.add({
+    return sp.web.lists.getByTitle("Reportes de Incidentes").items.add({
       NombredelInstructivo:this.state.nombreInstructivo,
       LinkdelInstructivo:this.state.linkInstructivo,
       Pa_x00ed_s:this.state.pais,
@@ -197,7 +207,6 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
       Supervisor: this.state.supervisor,
       NumerodeC_x00e9_lula: this.state.numeroCelula
     }).then((rta)=> {
-
       return rta.data
     }).catch((err)=>console.log("error add item",err))
   }

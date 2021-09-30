@@ -12,7 +12,7 @@
     "test": "gulp test"
   },
   "dependencies": {
-    "@fluentui/react": "^8.34.6",
+    "@fluentui/react": "^7.113.0",
     "@microsoft/decorators": "1.11.0",
     "@microsoft/sp-application-base": "1.11.0",
     "@microsoft/sp-core-library": "1.11.0",
