@@ -112,7 +112,7 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
               description={"Agregue un archivo a adjuntar"}
               ref={listItemAttachmentsComponentReference} 
               context={this.props.context} 
-              listId="15a99f9e-398f-4205-948d-532672299510" 
+              listId="d5c68534-72fd-483f-8a3b-a79469c40b82" 
               /> 
           </div>
           <div className={styles.column2}>
@@ -132,7 +132,7 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
         </div>
         <div className={ styles.button }>
             <PrimaryButton  style={{marginRight:10 , width:96}} text="Enviar" onClick={()=>this.handleOnClickSave(listItemAttachmentsComponentReference)} />
-            <DefaultButton  href="https://claroaup.sharepoint.com/sites/ClaroPedia365_uybkp/Lists/Reportes%20de%20Incidentes/AllItems.aspx" text="Cancelar"/>
+            <DefaultButton  href="https://claroaup.sharepoint.com/sites/BackOfficeClaropedia/Lists/test%20Reportes%20de%20Incidentes/AllItems.aspx" text="Cancelar"/>
         </div>
         <Dialog
         hidden={!this.state.confirmDialog}
@@ -148,7 +148,7 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
           dialogContentProps={{title:"Consulta enviada", subText:"Tu consulta fue enviada y será analizada. En breve recibirás un correo con la confirmación de tu pedido. Para ver el estado de tus consultas presioná 'Listo' o seguilas desde el botón 'Mis consultas'."}}
         >
           <DialogFooter>
-            <PrimaryButton href="https://claroaup.sharepoint.com/sites/ClaroPedia365_uybkp/Lists/Reportes%20de%20Incidentes/AllItems.aspx" text="Listo" />
+            <PrimaryButton href="https://claroaup.sharepoint.com/sites/BackOfficeClaropedia/Lists/test%20Reportes%20de%20Incidentes/AllItems.aspx" text="Listo" />
           </DialogFooter>
         </Dialog>
       </div>
@@ -196,7 +196,7 @@ export default class FormularioNuevoIncidente extends React.Component<IFormulari
   }
 
   private submitItem = ():Promise<any> =>{
-    return sp.web.lists.getByTitle("Reportes de Incidentes").items.add({
+    return sp.web.lists.getByTitle("nuevo Reportes de Incidentes").items.add({
       NombredelInstructivo:this.state.nombreInstructivo,
       LinkdelInstructivo:this.state.linkInstructivo,
       Pa_x00ed_s:this.state.pais,
